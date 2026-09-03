@@ -1,0 +1,49 @@
+name: Standard Compute
+description: >-
+  An independent, flat-rate LLM inference API for AI coding agents. OpenAI-compatible (and Anthropic Messages-co
+  mpatible) single-endpoint inference/routing service that smart-routes each request to the best-fit model, sold
+   as a flat monthly subscription rather than per-token billing.
+url: https://raw.githubusercontent.com/api-evangelist/standard-compute/refs/heads/main/apis.yml
+created: '2026-09-02'
+modified: '2026-09-02'
+specificationVersion: '0.21'
+tags:
+  - llm api
+  - flat-rate
+  - subscription
+  - ai agents
+  - inference
+  - model routing
+  - ai gateway
+  - developer tools
+  - coding agents
+  - openai-compatible
+apis:
+  - name: Standard Compute Inference API
+    description: >-
+      OpenAI-compatible (and Anthropic Messages-compatible) LLM inference endpoint. Set base URL to https://api.
+      stdcmpt.com/v1, use a Bearer API key, and set model to 'standardcompute'. Supports POST /v1/chat/completio
+      ns and an Anthropic Messages-compatible path.
+    humanURL: https://standardcompute.com/getting-started
+    baseURL: https://api.stdcmpt.com/v1
+    tags:
+      - llm api
+      - flat-rate
+      - subscription
+      - ai agents
+      - inference
+      - model routing
+      - ai gateway
+      - developer tools
+      - coding agents
+      - openai-compatible
+    properties:
+      - type: Documentation
+        url: https://standardcompute.com/getting-started
+      - type: LLMsTxt
+        url: https://standardcompute.com/llms.txt
+      - type: LLMsTxt
+        url: https://standardcompute.com/llms-full.txt
+maintainers:
+  - FN: Standard Compute
+    url: https://standardcompute.com
