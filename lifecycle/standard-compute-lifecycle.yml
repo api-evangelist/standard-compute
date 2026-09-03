@@ -1,0 +1,100 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/status
+also:
+  - https://standardcompute.com/changelog
+  - https://standardcompute.com/fair-use
+  - https://standardcompute.com/pricing
+versioning:
+  scheme: path-prefix
+  current: v1
+  base: https://api.stdcmpt.com/v1
+  spec_version: '0.1.0'
+  spec_version_note: >-
+    The published OpenAPI carries info.version 0.1.0 and info.title "FastAPI" —
+    framework defaults that have never been set to a real product version, so the
+    contract cannot be used to tell one release from another.
+  policy_published: false
+  note: >-
+    No versioning policy page exists. /v1 has been stable since the November 2025
+    launch and no v2 has been announced.
+model_lifecycle:
+  managed_by_provider: true
+  statement: >-
+    Callers set model to "standardcompute" and the router selects the underlying
+    model per request. The provider frames this as a lifecycle FEATURE: "you're
+    never stuck on a deprecated model". The corollary an integrator should weigh is
+    that the caller cannot pin a model version, so upstream model changes arrive
+    without a client-side change and without a client-side veto.
+  source: https://standardcompute.com/llms-full.txt
+  observed_pool:
+    probed: GET https://api.stdcmpt.com/v1/models (2026-09-02, HTTP 200, unauthenticated)
+    ids:
+      - StandardCompute
+      - anthropic/claude-standardcompute
+      - anthropic/claude-fable-5
+      - anthropic/claude-opus-5
+      - anthropic/claude-opus-5-fast
+      - anthropic/claude-sonnet-5
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  change_notice: >-
+    The fair-use policy commits to 14 days' notice of MATERIAL CHANGES to that
+    policy. That is a terms-change notice, not an API deprecation policy, so no
+    Deprecation pointer is wired — recording the distinction rather than crediting
+    a policy the provider has not published.
+  source: https://standardcompute.com/fair-use
+  plan_grandfathering: >-
+    Documented and honoured in practice: the 2026-08-29 plan-ladder change renamed
+    the $249 "Max" tier to "Pro" at the same price and states all grandfathered
+    plans continue unchanged.
+status_page:
+  url: https://standardcompute.com/status
+  vendor: first-party
+  machine_readable: https://standardcompute.com/api/status
+  machine_readable_status: 200
+  machine_readable_probed: '2026-09-02'
+  format: >-
+    JSON — {gateway:{status,latency_ms}, services:[{name,status}], timestamp}. Not a
+    standard status schema, but genuinely machine consumable, which is rare at this
+    company size.
+  live_checks: >-
+    The page is not hand-set: loading it fires real requests at the production
+    endpoints and renders what came back, including gateway latency.
+  components:
+    - API Gateway
+    - /v1/chat/completions
+    - /v1/completions
+    - /v1/responses
+    - Authentication
+    - Dashboard
+  self_verification: >-
+    Documented: "curl -i https://api.stdcmpt.com/v1/models" — the models endpoint
+    answers unauthenticated, so any caller can independently confirm the gateway.
+sla:
+  published: true
+  target: 99.9% monthly uptime for the core API at https://api.stdcmpt.com/v1
+  scope: gateway, authentication, key validation, request routing
+  exclusions: upstream model provider outages (mitigated by cross-provider failover)
+  contractual: >-
+    Stated as a target on the public status page. A contractual uptime SLA is
+    offered only on the custom Business tier.
+  source: https://standardcompute.com/status
+maintenance:
+  announced_in_advance: true
+  typical_window: weekdays 06:00-08:00 UTC
+  source: https://standardcompute.com/status
+incidents:
+  post_incident_reviews: >-
+    Committed for significant incidents — "what happened, the timeline, and what we
+    changed" — published on the status page. No archived incident was visible at
+    probe time.
+maturity:
+  first_public: '2025-04-07 (closed alpha)'
+  open_beta: '2025-07-14'
+  general_availability: '2025-11-18'
+  source: https://standardcompute.com/changelog

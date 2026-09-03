@@ -1,0 +1,72 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/llms-full.txt
+also:
+  - probed: POST https://api.stdcmpt.com/v1/chat/completions (no key) -> 401
+  - https://standardcompute.com/smart-pacing
+  - openapi/standard-compute-openapi.json
+format: openai-error-envelope
+rfc9457: false
+envelope:
+  shape: '{"error": {"message": "<human readable>", "type": "<machine class>"}}'
+  content_type: application/json
+  observed: '2026-09-02'
+  note: >-
+    The OpenAI Chat Completions error envelope, as expected of a wire-compatible
+    gateway. It is NOT RFC 9457 application/problem+json — there is no type URI,
+    title, status or instance member — but it is the canonical shape for this
+    market and existing OpenAI SDK error handling parses it unchanged.
+spec_coverage:
+  declared_error_responses: 0
+  note: >-
+    The published OpenAPI declares only a 200 response on every one of its nine
+    operations. Not one 4xx or 5xx is described, so this catalog is built from the
+    provider's own prose plus a live probe, not from the contract.
+problem_types:
+  - status: 401
+    type: invalid_request_error
+    title: Invalid API key
+    observed_body: '{"error": {"message": "Invalid API key", "type": "invalid_request_error"}}'
+    cause: >-
+      Missing, malformed or revoked Authorization header. Standard Compute keys are
+      prefixed sc_live_ and are shown in plaintext once, at creation only.
+    remediation: >-
+      Issue a new key from the dashboard and set it as the Bearer token (or as
+      OPENAI_API_KEY / ANTHROPIC_API_KEY, depending on which wire protocol the agent
+      speaks).
+    evidence: probed live 2026-09-02
+  - status: 402
+    type: null
+    title: Monthly compute budget reached
+    cause: >-
+      The plan's fixed monthly compute budget has been consumed. This is the API's
+      designed ceiling, not a fault.
+    remediation: >-
+      Upgrade the plan (takes effect immediately) or wait for the billing period to
+      renew. Enabling optional smart pacing beforehand spreads the budget across the
+      month so the ceiling is not hit in a burst.
+    retryable: false (until renewal or upgrade)
+    evidence: >-
+      https://standardcompute.com/llms-full.txt — "requests run normally until the
+      budget is reached, then return HTTP 402 until the billing period renews"
+  - status: 429
+    type: null
+    title: Not used by this API
+    cause: null
+    remediation: null
+    note: >-
+      Recorded as a deliberate ABSENCE. The provider states repeatedly that it does
+      not return per-minute 429s; under sustained load ahead of budget it paces
+      requests (adds latency) rather than rejecting them. Agents written against
+      OpenAI's 429 backoff path will simply never take that branch here.
+    evidence: https://standardcompute.com/smart-pacing
+gaps:
+  - >-
+    No published error reference page. The site's large /fix/* library documents
+    OTHER providers' errors (OpenAI 429, Anthropic 529, Copilot quota) as marketing
+    content — none of it describes Standard Compute's own failure modes, and it must
+    not be mistaken for one.
+  - >-
+    No error taxonomy for upstream failures. The provider states routing fails over
+    across providers in under 200ms, but does not document what an agent sees when
+    every upstream in a model class is degraded.

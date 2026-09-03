@@ -1,0 +1,135 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/getting-started
+also:
+  - https://standardcompute.com/smart-pacing
+  - https://standardcompute.com/security
+  - openapi/standard-compute-openapi.json
+  - probed: POST https://api.stdcmpt.com/v1/chat/completions (2026-09-02)
+summary: >-
+  Standard Compute has almost no conventions of its own by design: it is a
+  wire-compatible gateway, so the cross-cutting semantics an agent needs are
+  OpenAI's (and Anthropic's), not this vendor's. The two places it does diverge are
+  the model parameter (always the literal string "standardcompute" — the router
+  chooses) and the exhaustion signal (HTTP 402 on monthly budget, never a 429).
+auth:
+  style: bearer-api-key
+  header: 'Authorization: Bearer sc_live_...'
+  see: authentication/standard-compute-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key is documented, none appears in the OpenAPI, and none is
+    referenced anywhere in llms.txt or llms-full.txt. Because completion endpoints
+    are non-persisting the practical blast radius of a duplicate request is budget
+    consumption rather than a duplicated record — real money, but not a duplicated
+    business object. NO Idempotency pointer is wired into apis.yml: the check asks
+    whether the provider supports idempotent retries, and this one does not.
+  grade: absent
+pagination:
+  style: none
+  note: >-
+    No collection endpoint paginates. GET /v1/models returns the complete pool in a
+    single {"object":"list","data":[...]} envelope with no cursor, and the pool is
+    six entries.
+expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: passthrough
+  note: >-
+    OpenAI request fields are forwarded to the selected upstream. GET /v1/models
+    exposes per-model metadata the caller can branch on — context_length,
+    supported_parameters (tools, tool_choice, response_format, reasoning,
+    reasoning_effort), anthropic_family_tier and is_family_default. That is a
+    genuinely useful capability-discovery surface and it answers unauthenticated.
+request_id_tracing:
+  client_supplied: false
+  server_returned: not documented
+  observed_headers:
+    - x-cloud-trace-context
+    - cf-ray
+  note: >-
+    Observed on a live 401. Both are infrastructure identifiers (Google Cloud Run
+    and Cloudflare), not a documented, supportable correlation ID. Support asks
+    users to paste error text and payloads rather than quoting a request id, which
+    confirms none is published.
+versioning:
+  style: path-prefix (/v1)
+  see: lifecycle/standard-compute-lifecycle.yml
+error_envelope:
+  shape: '{"error": {"message": "...", "type": "..."}}'
+  rfc9457: false
+  see: errors/standard-compute-problem-types.yml
+rate_limit_signaling:
+  headers: none
+  status_on_exhaustion: 402
+  status_429_used: false
+  see: rate-limits/standard-compute-rate-limits.yml
+  note: >-
+    The single most consequential convention gap for an agent: budget state exists
+    but is only rendered to a human in the dashboard. Nothing in the response tells
+    a running agent it is close to a hard 402 stop.
+content_negotiation:
+  request: application/json
+  streaming: >-
+    Server-sent events, inherited from the OpenAI and Anthropic wire formats. Not
+    described in the published OpenAPI, whose request and response bodies are empty
+    schemas.
+transport:
+  tls_minimum: '1.2'
+  plaintext_http: refused
+  see: security/standard-compute-domain-security.yml
+model_parameter:
+  convention: >-
+    Set model to the literal "standardcompute" on the OpenAI-compatible paths. The
+    router selects the underlying model per request; the caller does not pin one.
+    Named ids from GET /v1/models exist for callers that want a family tier.
+  anthropic_path_exception: >-
+    Claude Code and other Anthropic-Messages clients set ANTHROPIC_BASE_URL to
+    https://api.stdcmpt.com with NO /v1 suffix, because the client appends
+    /v1/messages itself, and set no model at all.
+reversibility:
+  applicable: na
+  reason: >-
+    Read-and-generate only. Every operation is an inference call — POST
+    /v1/chat/completions, /v1/completions, /v1/responses, /v1/messages,
+    /v1/messages/count_tokens — plus one read (GET /v1/models) and two static file
+    reads. None of them creates, mutates or deletes a durable resource on Standard
+    Compute's side, so there is no state for a reversal operation to act on. The
+    provider explicitly retains no prompt or response content.
+  write_surfaces: []
+  reversal_operations: []
+  irreversible_side_effect:
+    description: >-
+      One genuinely irreversible consequence exists and it is financial, not
+      resource-shaped: a completed request consumes monthly compute budget, and
+      budget consumption cannot be refunded, voided or reversed through the API.
+      There is no cancel, no void and no per-request refund.
+    mitigations_published:
+      - name: Optional smart pacing
+        effect: spreads the remaining budget across the month so a runaway agent cannot drain it in a burst
+        source: https://standardcompute.com/smart-pacing
+      - name: 7-day fair refund
+        effect: >-
+          Subscription-level, not request-level — cancel within 7 days and pay only
+          what was used.
+        source: https://standardcompute.com/pricing
+    window: not applicable — no reversal path exists to have a window
+  dry_run_mode:
+    supported: partial
+    operation: POST /v1/messages/count_tokens
+    operationId: anthropic_count_tokens_v1_messages_count_tokens_post
+    note: >-
+      Token counting is the closest thing to a rehearsal: it lets an agent size a
+      request before spending on it. It is Anthropic-wire-compatible and there is no
+      OpenAI-path equivalent.
+  grade: na
+  grade_basis: >-
+    Recorded as na rather than 0 per the contract: an API with no write surface has
+    nothing to reverse, and an honest na leaves the denominator instead of scoring
+    a zero the provider could not have avoided.

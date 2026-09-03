@@ -1,0 +1,98 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  Registry searches of npm, PyPI, RubyGems, crates.io, NuGet, Maven Central and
+  pkg.go.dev, plus https://standardcompute.com/getting-started and
+  https://standardcompute.com/llms-full.txt (2026-09-02).
+summary: >-
+  Standard Compute ships NO first-party client library, in any language, and this is
+  a design decision rather than a gap. Because the API is wire-compatible with the
+  OpenAI Chat Completions and Anthropic Messages formats, the official OpenAI and
+  Anthropic SDKs work against it unchanged by setting baseURL / ANTHROPIC_BASE_URL.
+  The provider's documented integration path is a base-URL swap, not an SDK install.
+  NO SDKs pointer is wired into apis.yml — sdk_count for this provider is honestly
+  zero.
+first_party_sdk_count: 0
+registry_probes:
+  - registry: npm
+    query: standardcompute
+    endpoint: https://registry.npmjs.org/-/v1/search?text=standardcompute
+    status: 200
+    results: 0
+  - registry: npm
+    query: stdcmpt
+    status: 200
+    results: 0
+  - registry: pypi
+    query: standardcompute
+    endpoint: https://pypi.org/pypi/standardcompute/json
+    status: 404
+  - registry: pypi
+    query: standard-compute
+    status: 404
+  - registry: pypi
+    query: stdcmpt
+    status: 404
+packages:
+  - name: install.sh
+    kind: setup-script
+    official: true
+    registry: http
+    url: https://api.stdcmpt.com/install.sh
+    version: null
+    published: null
+    version_note: >-
+      Checked, nothing to record. This is an unpinned URL served directly from the
+      API host — there is no registry metadata endpoint to query and no version in
+      the path, so a consumer piping it to bash cannot tell what they are getting
+      either. Recorded as a real distribution-hygiene finding, not a missing lookup.
+    status: 200
+    probed: '2026-09-02'
+    description: >-
+      Bash installer that writes a Standard Compute provider block into
+      ~/.openclaw/openclaw.json (backing up the existing file) and persists
+      STANDARDCOMPUTE_API_KEY to the user's shell profile. Accepts --key/--api-key or
+      prompts interactively. Requires python3. It configures a third-party agent; it
+      is not a Standard Compute CLI and exposes no command surface of its own.
+    declared_in_openapi: true
+    operationId: install_sh_install_sh_get
+  - name: install.ps1
+    kind: setup-script
+    official: true
+    registry: http
+    url: https://api.stdcmpt.com/install.ps1
+    version: null
+    published: null
+    version_note: Same unpinned distribution as install.sh; no registry metadata exists to query.
+    status: 200
+    probed: '2026-09-02'
+    description: PowerShell sibling of install.sh for Windows.
+    declared_in_openapi: true
+    operationId: install_ps1_install_ps1_get
+third_party_clients_that_work_unchanged:
+  - name: openai
+    registry: npm / pypi
+    official: false
+    first_party_to: OpenAI
+    usage: 'new OpenAI({ baseURL: "https://api.stdcmpt.com/v1", apiKey: process.env.STANDARD_COMPUTE_KEY })'
+    source: https://standardcompute.com/getting-started
+  - name: '@anthropic-ai/sdk / anthropic'
+    official: false
+    first_party_to: Anthropic
+    usage: 'ANTHROPIC_BASE_URL=https://api.stdcmpt.com (no /v1 suffix)'
+    source: https://standardcompute.com/integrations/claude-code
+third_party_note: >-
+  Listed for integrator accuracy only. These are other companies' packages and are
+  explicitly marked official:false — none of them counts as a Standard Compute SDK.
+github_org:
+  candidate: https://github.com/standardcompute
+  status: 200
+  public_repos: 3
+  repos: [workspace, foundry, agent-code-of-conduct]
+  claimed: false
+  reason: >-
+    NOT treated as this company's org and NOT wired as a GitHubOrganization pointer.
+    The org carries no name, description, blog or homepage, none of the three repos
+    references standardcompute.com, and standardcompute.com links to no GitHub
+    account anywhere on the site. Ownership is unproven, so it is recorded as a lead
+    rather than a fact.

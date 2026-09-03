@@ -1,0 +1,86 @@
+generated: '2026-09-02'
+method: probed
+source: 'GET https://api.stdcmpt.com/v1/models (2026-09-02, HTTP 200)'
+also: openapi/standard-compute-openapi.json
+summary: >-
+  There is effectively no persisted domain model to graph. The published OpenAPI
+  declares an EMPTY components object — zero schemas, zero $refs — so nothing can be
+  derived from the contract. The one concrete entity that could be observed is the
+  Model record returned live by the unauthenticated /v1/models endpoint; it is
+  recorded here from the actual response body, not inferred.
+spec_derivation:
+  components_schemas: 0
+  refs: 0
+  note: >-
+    Recorded as a real finding, not a pipeline miss. The provider ships a bare
+    FastAPI default spec with empty request and response schemas on every operation.
+entities:
+  - name: Model
+    source: probed response body of GET /v1/models
+    envelope: '{"object": "list", "data": [Model]}'
+    identifier: id
+    fields:
+      - name: id
+        type: string
+        example: anthropic/claude-opus-5
+        note: >-
+          Two id shapes coexist — a bare routing alias (StandardCompute) and
+          vendor-namespaced ids (anthropic/claude-*). Callers are told to send the
+          literal "standardcompute".
+      - name: object
+        type: string
+        constant: model
+      - name: created
+        type: integer
+        observed_value: 0
+        note: Unix-epoch field present for OpenAI wire compatibility but never populated.
+      - name: owned_by
+        type: string
+        observed_value: StandardCompute
+      - name: display_name
+        type: string
+        optional: true
+      - name: context_length
+        type: integer
+        observed_value: 1000000
+      - name: supported_parameters
+        type: array of string
+        observed_values: [tools, tool_choice, response_format, reasoning, reasoning_effort]
+        note: The capability flags an agent should branch on before sending a tool-calling request.
+      - name: anthropic_family_tier
+        type: string
+        observed_values: [opus, sonnet, fable]
+      - name: is_family_default
+        type: boolean
+relationships:
+  - from: ModelList
+    to: Model
+    type: has_many
+    via: data
+  - from: Model
+    to: Model
+    type: has_one
+    via: anthropic_family_tier + is_family_default
+    note: >-
+      Each Anthropic family tier designates exactly one default member, so the
+      family tier acts as a grouping key with a designated representative.
+id_prefixes:
+  - prefix: sc_live_
+    entity: ApiKey
+    source: https://standardcompute.com/getting-started
+    note: >-
+      ApiKey is a real entity in the product (created, listed, last-used timestamps
+      shown in the dashboard) but is NOT exposed by any public API operation, so it
+      cannot be modelled beyond its key prefix.
+absent_entities:
+  - name: Account / Subscription / Budget
+    note: >-
+      Plan, remaining monthly budget and usage all exist in the dashboard, and none
+      of them is reachable through the public API. The absence of a budget resource
+      is the structural reason an agent cannot see how close it is to a 402.
+  - name: Request / Usage log
+    note: >-
+      Deliberately absent. The provider states it does not log prompt or response
+      content; only metadata (timestamp, model id, token count) is retained, and it
+      is not exposed via API.
+render: null

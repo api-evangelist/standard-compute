@@ -1,0 +1,26 @@
+generated: '2026-09-02'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: standardcompute.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 24 17:51:14 2026 GMT
+  hsts: false
+- host: api.stdcmpt.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 12 16:42:53 2026 GMT
+  hsts: null
+domains:
+- domain: standardcompute.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
+- domain: stdcmpt.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

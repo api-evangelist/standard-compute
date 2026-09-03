@@ -1,0 +1,70 @@
+generated: '2026-09-02'
+method: probed
+source: live GET probes of /.well-known/* on every apis.yml host (2026-09-02)
+note: >-
+  No .well-known document is served on either host. standardcompute.com returns
+  its Next.js 404 page (HTTP 404, text/html) for every path; api.stdcmpt.com
+  returns a JSON 404 body for every path. Nothing was found, so NO WellKnown or
+  SecurityTxt pointer is wired into apis.yml — this file records a verified
+  absence, not a presence. Note that the provider DOES publish a responsible
+  disclosure policy, just at https://standardcompute.com/security rather than at
+  /.well-known/security.txt (see security/standard-compute-vulnerability-disclosure.yml).
+hosts:
+  - host: standardcompute.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null
+  - host: api.stdcmpt.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null

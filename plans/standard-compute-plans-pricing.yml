@@ -1,0 +1,142 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/pricing
+also:
+  - https://standardcompute.com/llms.txt
+  - https://standardcompute.com/fair-use
+currency: USD
+billing_period: monthly
+model: >-
+  Flat monthly subscription. There is no per-token meter and no overage charge.
+  Each tier carries a stated monthly COMPUTE BUDGET (a dollar figure of upstream
+  work); requests run at full speed until it is consumed, then the API returns
+  HTTP 402 until the period renews. Optional "smart pacing" spreads the budget
+  across the month instead of stopping.
+refund_policy: 7-day fair refund — cancel and pay only what was used
+plan_count: 8
+plans:
+  - name: Starter
+    family: Individual
+    price: 19
+    currency: USD
+    period: monthly
+    included_quota: $20/mo compute budget
+    equivalent_direct_api_value: up to $60/mo
+    bonus_compute_pct: 2
+    overage: none (requests stop at budget)
+    limits:
+      parallel_agents: one at a time
+      scheduling: shared pool
+      execution_speed: standard
+      api_keys: 1
+      provider_region_selection: false
+      support: standard
+  - name: Economy
+    family: Individual
+    price: 39
+    currency: USD
+    period: monthly
+    included_quota: $41/mo compute budget
+    equivalent_direct_api_value: up to $130/mo
+    bonus_compute_pct: 4
+    overage: none
+    limits:
+      parallel_agents: true
+      scheduling: shared pool
+      execution_speed: standard
+      api_keys: 1
+      provider_region_selection: false
+      support: standard
+    note: marked "Most popular" on the pricing page
+  - name: Standard
+    family: Individual
+    price: 89
+    currency: USD
+    period: monthly
+    included_quota: $95/mo compute budget
+    equivalent_direct_api_value: up to $310/mo
+    bonus_compute_pct: 6
+    overage: none
+    limits:
+      parallel_agents: true
+      scheduling: priority
+      execution_speed: faster
+      api_keys: 1
+      provider_region_selection: false
+      support: standard
+  - name: Pro
+    family: Individual
+    price: 249
+    currency: USD
+    period: monthly
+    included_quota: $269/mo compute budget
+    equivalent_direct_api_value: up to $880/mo
+    bonus_compute_pct: 8
+    overage: none
+    limits:
+      parallel_agents: true
+      scheduling: highest priority
+      execution_speed: maximum
+      api_keys: 1
+      provider_region_selection: 'yes (EU, US)'
+      support: standard
+    note: renamed from "Max" on 2026-08-29 at the same price
+  - name: Pro Plus
+    family: Business
+    price: 499
+    currency: USD
+    period: monthly
+    included_quota: $1,800/mo of API work included
+    bonus_compute_pct: 10
+    overage: none
+    limits:
+      api_keys: unlimited
+      scheduling: highest priority
+  - name: Growth
+    family: Business
+    price: 999
+    currency: USD
+    period: monthly
+    included_quota: $3,700/mo of API work included
+    bonus_compute_pct: 12
+    overage: none
+    limits:
+      provider_region_selection: 'yes (EU, US)'
+  - name: Scale
+    family: Business
+    price: 2499
+    currency: USD
+    period: monthly
+    included_quota: $9,300/mo of API work included
+    bonus_compute_pct: 14
+    overage: none
+    limits:
+      throughput: dedicated
+      support: priority, direct line to engineers
+  - name: Business
+    family: Business
+    price: null
+    price_model: contact sales ("Let's talk")
+    currency: USD
+    period: monthly
+    included_quota: compute sized to customer volume
+    overage: none
+    limits:
+      uptime_sla: 'yes (custom terms)'
+      invoicing: consolidated
+      seats: flat price for the whole team
+    note: >-
+      The only tier without a published price. Everything below it is fully priced
+      on the public page, which is unusual for this category.
+free_trial:
+  available: true
+  mechanism: >-
+    A guided free trial starts on the dashboard home tab; the getting-started page
+    also invites prospects to email contact@standardcompute.com to have a trial
+    activated.
+  source: https://standardcompute.com/getting-started
+disclosure:
+  included_value_footnote: >-
+    "What the same work would cost without smart routing and automatic provider
+    picking — sent straight to one provider at list prices. Savings vary with your
+    workload." (verbatim from the pricing page)

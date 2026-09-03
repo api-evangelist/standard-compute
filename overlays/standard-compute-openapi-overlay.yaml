@@ -1,0 +1,128 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Standard Compute Inference API
+  version: 1.0.0
+extends: ../openapi/standard-compute-openapi.json
+x-provenance:
+  generated: '2026-09-02'
+  method: generated
+  source: >-
+    Derived from artifacts in this repo (authentication/, errors/, rate-limits/,
+    conventions/, lifecycle/) against the verbatim spec fetched from
+    https://api.stdcmpt.com/openapi.json on 2026-09-02.
+  note: >-
+    The upstream document is an unedited FastAPI default — info.title "FastAPI",
+    info.version 0.1.0, no servers[], no securitySchemes, no requestBody, no
+    components.schemas, and a lone 200 on every operation. This overlay records what
+    the provider's own documentation already states but the contract omits. It does
+    NOT mutate openapi/standard-compute-openapi.json, and the scorer reads the
+    original, so this improves derived artifacts and gives the provider a ready-made
+    patch list — it does not inflate their content score.
+actions:
+  - target: $.info
+    description: Name the API and the company, per the provider's own site.
+    update:
+      title: Standard Compute Inference API
+      description: >-
+        Flat-rate, smart-routed LLM inference. One endpoint speaks both the OpenAI
+        Chat Completions wire format and the Anthropic Messages wire format; set the
+        model to "standardcompute" and the router selects the underlying model per
+        request. Billing is a fixed monthly compute budget rather than per-token.
+      contact:
+        name: Standard Compute
+        url: https://standardcompute.com
+        email: contact@standardcompute.com
+      termsOfService: https://standardcompute.com/terms
+  - target: $
+    description: >-
+      Add the production server. The spec ships with no servers[] at all, so a
+      generated client has no host to call.
+    update:
+      servers:
+        - url: https://api.stdcmpt.com
+          description: Production gateway (OpenAI-compatible paths live under /v1)
+  - target: $.components
+    description: >-
+      Declare the Bearer API key. Every /v1 completion path requires it, and its
+      absence is the most misleading thing in the published contract — a client
+      generated from this spec would send no Authorization header and receive 401.
+    update:
+      securitySchemes:
+        bearerApiKey:
+          type: http
+          scheme: bearer
+          description: >-
+            Standard Compute API key from the dashboard, prefixed sc_live_. Supplied
+            as "Authorization: Bearer <key>". Shown in plaintext once, at creation.
+  - target: $
+    description: Apply the security requirement globally.
+    update:
+      security:
+        - bearerApiKey: []
+  - target: $.paths['/v1/models'].get
+    description: >-
+      GET /v1/models is genuinely anonymous — the provider documents it as the
+      self-service uptime check — so it overrides the global requirement.
+    update:
+      security: []
+      tags: [Models]
+      description: >-
+        Returns the current smart-routing pool. Each entry carries context_length,
+        supported_parameters, anthropic_family_tier and is_family_default, which is
+        the only capability-discovery surface this API exposes.
+  - target: $.paths['/v1/chat/completions'].post
+    description: Document the failure modes the spec omits entirely.
+    update:
+      tags: [Inference]
+      responses:
+        '401':
+          description: >-
+            Invalid or missing API key. Body is the OpenAI error envelope:
+            {"error": {"message": "Invalid API key", "type": "invalid_request_error"}}
+        '402':
+          description: >-
+            The plan's monthly compute budget has been consumed. Requests resume when
+            the billing period renews or the plan is upgraded. This is the designed
+            ceiling of the flat-rate model, not a fault.
+  - target: $.paths['/v1/messages'].post
+    description: Same failure modes on the Anthropic-compatible path.
+    update:
+      tags: [Inference]
+      responses:
+        '401':
+          description: Invalid or missing API key.
+        '402':
+          description: Monthly compute budget consumed.
+  - target: $.paths['/healthz'].get
+    description: >-
+      Record a contract/deployment divergence. The spec declares GET /healthz, but a
+      live request on 2026-09-02 returned an HTTP 404 Google Cloud Run error page —
+      the route is described but not served at this host.
+    update:
+      deprecated: false
+      x-api-evangelist-probe:
+        fetched: '2026-09-02'
+        url: https://api.stdcmpt.com/healthz
+        http_status: 404
+        note: declared in the spec, not served in production
+x-recommendations-to-provider:
+  - >-
+    Set info.title and info.version. "FastAPI" / "0.1.0" is the framework default and
+    means no consumer can tell one release of the contract from another.
+  - >-
+    Declare securitySchemes and apply security. Today the contract says the API is
+    anonymous, which is false for eight of its nine operations.
+  - >-
+    Declare requestBody and response schemas (or $ref the OpenAI and Anthropic
+    schemas). Empty bodies make code generation impossible against this spec.
+  - >-
+    Declare the 401 and 402 responses. 402 in particular is the ceiling of the whole
+    product and appears nowhere in the machine-readable contract.
+  - >-
+    Emit budget headers on every response (remaining budget, period reset). Budget
+    state is rendered to humans in the dashboard and to agents nowhere — this is the
+    single largest agent-readiness gap on the API.
+  - >-
+    Serve /.well-known/security.txt pointing at https://standardcompute.com/security.
+    The responsible-disclosure policy already exists and meets RFC 9116's substance;
+    only the file is missing.

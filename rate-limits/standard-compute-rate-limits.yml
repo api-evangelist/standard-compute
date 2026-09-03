@@ -1,0 +1,65 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/smart-pacing
+also:
+  - https://standardcompute.com/fair-use
+  - https://standardcompute.com/llms-full.txt
+  - https://standardcompute.com/status
+summary: >-
+  Standard Compute deliberately does NOT publish a classic request-rate limit.
+  There are no per-minute 429 walls, no 5-hour session windows and no weekly caps.
+  The binding constraint is a fixed MONTHLY COMPUTE BUDGET per plan; requests run
+  at full speed until it is consumed and then return HTTP 402 until the billing
+  period renews. Under extreme sustained load ahead of budget the gateway engages
+  "pacing" — requests are spaced out but still succeed — instead of rejecting them.
+  Anti-abuse limits exist but their thresholds are not published.
+limit_count: 3
+rate_limits:
+  - scope: per-account (monthly)
+    window: calendar billing period (1 month)
+    limit: plan compute budget in USD of upstream work — $20 Starter / $41 Economy / $95 Standard / $269 Pro; higher Business tiers stated as included API-work value ($1,800 / $3,700 / $9,300)
+    burst: unrestricted within the budget — the provider states pace on day one equals pace on day thirty
+    exhaustion_status: 402
+    exhaustion_behavior: >-
+      Requests stop cleanly until the period renews; upgrading a tier takes effect
+      immediately and resumes service.
+    source: https://standardcompute.com/fair-use
+  - scope: per-account (sustained load)
+    window: continuous
+    limit: not published — engages only under "extreme sustained load" running far ahead of the monthly budget
+    behavior: >-
+      Smooth pacing: additional latency is inserted between requests. The provider
+      explicitly states requests keep succeeding and no 429 is returned, so an agent
+      loop does not break.
+    exhaustion_status: null
+    source: https://standardcompute.com/smart-pacing
+  - scope: per-key (authentication)
+    window: not published
+    limit: not published
+    behavior: failed authentication attempts are rate limited to mitigate brute-force key guessing
+    exhaustion_status: 401
+    source: https://standardcompute.com/security
+optional_controls:
+  - name: Smart pacing
+    default: 'off'
+    effect: >-
+      Dashboard switch that spreads the remaining monthly budget evenly across the
+      month, for always-on agents that should not drain the budget in week one.
+    source: https://standardcompute.com/smart-pacing
+concurrency:
+  starter: one agent at a time
+  economy_and_above: parallel agents permitted
+  source: https://standardcompute.com/pricing
+response_headers:
+  published: false
+  observed: []
+  note: >-
+    PROBED 2026-09-02. An unauthenticated POST to /v1/chat/completions returned
+    HTTP 401 with no X-RateLimit-*, no RateLimit-* and no Retry-After header. The
+    provider documents no runtime rate-limit headers anywhere, and the published
+    OpenAPI declares no 402/429 responses. An agent therefore has NO in-band signal
+    of remaining budget or of pacing — the only budget view is the human dashboard.
+    This is the clearest agent-readiness gap on this API and is captured as a
+    recommendation in overlays/standard-compute-openapi-overlay.yaml.
+  retry_after: not sent
+  status_on_exhaustion: 402

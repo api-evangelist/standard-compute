@@ -1,8 +1,15 @@
 name: Standard Compute
 description: >-
-  An independent, flat-rate LLM inference API for AI coding agents. OpenAI-compatible (and Anthropic Messages-co
-  mpatible) single-endpoint inference/routing service that smart-routes each request to the best-fit model, sold
-   as a flat monthly subscription rather than per-token billing.
+  An independent, flat-rate LLM inference API for AI coding agents. Standard Compute
+  runs a single OpenAI-compatible (and Anthropic Messages-compatible) inference
+  endpoint that smart-routes each request to the best-fit model across closed
+  frontier and efficient open models, sold as a flat monthly subscription with a
+  stated compute budget rather than per-token billing. Integration is a base-URL
+  swap: point any OpenAI-compatible agent at https://api.stdcmpt.com/v1, use a
+  Bearer key, and set the model to "standardcompute". There are no per-minute 429
+  walls and no 5-hour or weekly windows; requests run at full speed until the
+  monthly budget is reached, then return HTTP 402 until the period renews.
+image: https://standardcompute.com/opengraph-image.png
 url: https://raw.githubusercontent.com/api-evangelist/standard-compute/refs/heads/main/apis.yml
 created: '2026-09-02'
 modified: '2026-09-02'
@@ -21,9 +28,12 @@ tags:
 apis:
   - name: Standard Compute Inference API
     description: >-
-      OpenAI-compatible (and Anthropic Messages-compatible) LLM inference endpoint. Set base URL to https://api.
-      stdcmpt.com/v1, use a Bearer API key, and set model to 'standardcompute'. Supports POST /v1/chat/completio
-      ns and an Anthropic Messages-compatible path.
+      OpenAI-compatible (and Anthropic Messages-compatible) LLM inference endpoint.
+      Set base URL to https://api.stdcmpt.com/v1, use a Bearer API key, and set
+      model to 'standardcompute'. Supports POST /v1/chat/completions,
+      POST /v1/completions, POST /v1/responses, the Anthropic Messages-compatible
+      POST /v1/messages and /v1/messages/count_tokens, plus an unauthenticated
+      GET /v1/models.
     humanURL: https://standardcompute.com/getting-started
     baseURL: https://api.stdcmpt.com/v1
     tags:
@@ -38,12 +48,83 @@ apis:
       - coding agents
       - openai-compatible
     properties:
+      - type: OpenAPI
+        url: openapi/standard-compute-openapi.json
       - type: Documentation
+        url: https://standardcompute.com/getting-started
+      - type: GettingStarted
         url: https://standardcompute.com/getting-started
       - type: LLMsTxt
         url: https://standardcompute.com/llms.txt
-      - type: LLMsTxt
-        url: https://standardcompute.com/llms-full.txt
+      - type: Authentication
+        url: authentication/standard-compute-authentication.yml
+      - type: ErrorCatalog
+        url: errors/standard-compute-problem-types.yml
+      - type: RateLimits
+        url: rate-limits/standard-compute-rate-limits.yml
+      - type: Conventions
+        url: conventions/standard-compute-conventions.yml
+      - type: DataModel
+        url: data-model/standard-compute-data-model.yml
+      - type: Overlay
+        url: overlays/standard-compute-openapi-overlay.yaml
+common:
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: Support
+    url: https://standardcompute.com/support
+  - type: Blog
+    url: https://standardcompute.com/blog
+  - type: Pricing
+    url: https://standardcompute.com/pricing
+  - type: SignUp
+    url: https://standardcompute.com/login
+  - type: TermsOfService
+    url: https://standardcompute.com/terms
+  - type: PrivacyPolicy
+    url: https://standardcompute.com/privacy
+  - type: StatusPage
+    url: https://standardcompute.com/status
+  - type: ChangeLog
+    url: https://standardcompute.com/changelog
+  - type: Security
+    url: https://standardcompute.com/security
+  - type: LLMsTxt
+    url: llms/standard-compute-llms.txt
+  - type: Lifecycle
+    url: lifecycle/standard-compute-lifecycle.yml
+  - type: Plans
+    url: plans/standard-compute-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: Conformance
+    url: conformance/standard-compute-conformance.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+  - type: Packages
+    url: packages/standard-compute-packages.yml
+  - type: Overlay
+    url: overlays/standard-compute-openapi-overlay.yaml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: VulnerabilityDisclosure
+    url: security/standard-compute-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/standard-compute-domain-security.yml
 maintainers:
   - FN: Standard Compute
     url: https://standardcompute.com
+    email: contact@standardcompute.com
+x-enrichment:
+  date: '2026-09-02'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

@@ -1,0 +1,26 @@
+generated: '2026-09-02'
+method: generated
+source: >-
+  openapi/standard-compute-openapi.json (operationIds verified against the verbatim
+  spec fetched 2026-09-02) plus the provider's getting-started, fair-use, smart-pacing
+  and integration pages.
+note: >-
+  Two skills only. This API has nine operations, five of which are the same inference
+  call in different wire dialects, so there are exactly two marquee flows worth
+  packaging: getting an agent pointed at the gateway, and not blowing the flat-rate
+  budget once it is. Every operationId referenced below was read from the published
+  spec; none was invented.
+skills:
+  - name: standard-compute-switch-agent-provider
+    file: standard-compute-switch-agent-provider.md
+    description: Repoint an OpenAI- or Anthropic-compatible agent at the flat-rate gateway and verify it.
+    operations:
+      - list_models_v1_models_get
+      - chat_completions_v1_chat_completions_post
+  - name: standard-compute-estimate-before-spending
+    file: standard-compute-estimate-before-spending.md
+    description: Size a request with token counting before it consumes irreversible monthly compute budget.
+    operations:
+      - anthropic_count_tokens_v1_messages_count_tokens_post
+      - list_models_v1_models_get
+      - anthropic_messages_v1_messages_post

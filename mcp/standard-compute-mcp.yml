@@ -1,0 +1,93 @@
+generated: '2026-09-02'
+method: derived
+source: openapi/standard-compute-openapi.json
+status: candidate
+summary: >-
+  Standard Compute publishes NO MCP server. This file is a derived candidate — a
+  proposal of what a server would expose if the provider shipped one — and it is
+  deliberately NOT wired as a type: MCPServer pointer in apis.yml, because that
+  pointer asserts the provider serves an agent surface and they do not.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+probes:
+  - url: https://mcp.standardcompute.com/mcp
+    method: 'POST tools/list'
+    status: '000'
+    result: host does not resolve
+  - url: https://api.stdcmpt.com/mcp
+    method: 'POST tools/list'
+    status: 404
+  - url: https://api.stdcmpt.com/v1/mcp
+    method: 'POST tools/list'
+    status: 404
+  - url: https://standardcompute.com/mcp
+    method: 'POST tools/list'
+    status: 405
+    note: >-
+      Method Not Allowed from the Next.js router, and a GET to the same path returns
+      404 with a 9-byte text/plain body. This is a framework artefact, not an MCP
+      endpoint.
+  - url: https://api.stdcmpt.com/.well-known/oauth-authorization-server
+    status: 404
+  - url: https://api.stdcmpt.com/.well-known/oauth-protected-resource
+    status: 404
+  - url: https://registry.npmjs.org/-/v1/search?text=standardcompute
+    status: 200
+    result: zero packages
+search_notes: >-
+  npm and PyPI carry no standardcompute/stdcmpt package. The word "MCP" appears in
+  llms.txt only in descriptions of THIRD-PARTY agents that support MCP (Cline, Kilo
+  Code) — never as a surface Standard Compute itself offers. The github.com/standardcompute
+  org exists but publishes no MCP server and carries no metadata tying it to this
+  company, so it is not treated as a source.
+candidate_tools:
+  - name: list_models
+    description: List the models currently in the smart-routing pool with their capabilities.
+    rest: GET /v1/models
+    operationId: list_models_v1_models_get
+    auth_required: false
+    read_only: true
+  - name: chat_completion
+    description: Send an OpenAI-format chat completion through the smart router.
+    rest: POST /v1/chat/completions
+    operationId: chat_completions_v1_chat_completions_post
+    auth_required: true
+    read_only: false
+    consequence: consumes monthly compute budget
+  - name: text_completion
+    description: Send a legacy OpenAI-format text completion.
+    rest: POST /v1/completions
+    operationId: completions_v1_completions_post
+    auth_required: true
+  - name: create_response
+    description: Send a request on the OpenAI Responses-format path.
+    rest: POST /v1/responses
+    operationId: responses_v1_responses_post
+    auth_required: true
+  - name: anthropic_message
+    description: Send an Anthropic Messages-format request through the same router.
+    rest: POST /v1/messages
+    operationId: anthropic_messages_v1_messages_post
+    auth_required: true
+  - name: count_tokens
+    description: Count tokens for an Anthropic-format request without spending budget on a completion.
+    rest: POST /v1/messages/count_tokens
+    operationId: anthropic_count_tokens_v1_messages_count_tokens_post
+    auth_required: true
+    read_only: true
+candidate_input_schemas: >-
+  NOT DERIVABLE. The published OpenAPI declares no requestBody and no
+  components.schemas on any operation, so no real inputSchema can be produced from
+  the contract. A server built from this spec would have to import the OpenAI and
+  Anthropic request schemas from those upstream specifications instead.
+assessment: >-
+  An MCP server would be low-value here and that is worth stating plainly. This API
+  is the compute an agent RUNS ON, not a tool an agent CALLS — an agent already
+  reaches it through its own model-provider configuration. The one genuinely useful
+  MCP tool would be a budget/usage reader, and no such endpoint exists in the public
+  contract at all.

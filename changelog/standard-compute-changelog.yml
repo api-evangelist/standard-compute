@@ -1,0 +1,106 @@
+generated: '2026-09-02'
+method: searched
+source: https://standardcompute.com/changelog
+scheme: dated entries grouped by year, each tagged with a category (Plans, Models, Integration, Performance, Platform, Milestone)
+feed: null
+feed_note: No RSS/Atom or JSON feed is offered for the changelog; it is an HTML page only.
+current_version: v1 (no per-release version numbers are published)
+entry_count_recent: 12
+window: 2026-01-06 through 2026-08-29 (recent window; the page also archives 2025 back to the 2025-04-07 closed alpha)
+entries:
+  - date: '2026-08-29'
+    category: Plans
+    title: New Plan Ladder
+    breaking: false
+    additions:
+      - Ladder restructured to Starter $19 / Economy $39 / Standard $89 / Pro $249 (Individual) and Pro Plus $499 / Growth $999 / Scale $2,499 plus custom Business
+      - Free bonus compute added on top of the paid budget, 2% on Starter up to 14% on Scale
+    highlights: >-
+      The $249 tier formerly sold as "Max" is renamed "Pro" at the same price;
+      grandfathered plans continue unchanged.
+  - date: '2026-06-11'
+    category: Integration
+    title: Kilo Code Support
+    breaking: false
+    additions: [Kilo Code supported via the VS Code "OpenAI Compatible" provider]
+  - date: '2026-05-26'
+    category: Integration
+    title: OpenCode Support
+    breaking: false
+    additions: [Official OpenCode support via a provider block in opencode.json]
+  - date: '2026-05-12'
+    category: Integration
+    title: Hermes Agent Support
+    breaking: false
+    additions: [Hermes Agent connects out of the box]
+    highlights: Brings first-class agent integrations to four alongside OpenClaw, OpenCode and Kilo Code.
+  - date: '2026-04-27'
+    category: Performance
+    title: Routing Algorithm v3
+    breaking: false
+    additions:
+      - Requests scored on complexity, expected output length and live provider load before model selection
+      - Cross-provider failover in under 200ms when an upstream is degraded
+  - date: '2026-04-13'
+    category: Models
+    title: Frontier Model Refresh
+    breaking: false
+    additions: [GPT-5.1, GPT-5.1 Codex, Claude Opus 4.7, Claude Sonnet 4.6 and Grok 4.2 added to the routing pool]
+    highlights: No client change required — callers keep model "standardcompute".
+  - date: '2026-03-08'
+    category: Integration
+    title: OpenClaw Integration
+    breaking: false
+    additions: [One-command installation for Mac, Linux and Windows]
+  - date: '2026-02-20'
+    category: Plans
+    title: New Plan Structure
+    breaking: false
+    additions: [Starter $9, Standard $39, Fast $99, Turbo $399; 3-day free trial on all plans]
+    highlights: >-
+      Superseded by the 2026-08-29 ladder. Existing subscribers were migrated
+      automatically.
+  - date: '2026-02-14'
+    category: Models
+    title: Grok 4 Now Available
+    breaking: false
+    additions: [xAI Grok 4 added to the routing pool]
+  - date: '2026-02-03'
+    category: Platform
+    title: Fair Use Policy Published
+    breaking: false
+    additions: [Fair use page documenting batching, routing, prompt compaction and adaptive throttling]
+  - date: '2026-01-20'
+    category: Models
+    title: Claude Opus 4 Now Available
+    breaking: false
+    additions: [Claude Opus 4 added to the routing pool]
+  - date: '2026-01-13'
+    category: Performance
+    title: Faster Response Times on Higher Tiers
+    breaking: false
+    additions: [Graduated slowdowns replace hard cutoffs in adaptive throttling]
+  - date: '2026-01-06'
+    category: Integration
+    title: Make and Zapier Support
+    breaking: false
+    additions: [Make and Zapier supported alongside n8n through the same OpenAI-compatible endpoints]
+earlier_milestones:
+  - date: '2025-11-18'
+    title: Service Launch (general availability) with /v1/completions and /v1/responses
+  - date: '2025-11-04'
+    title: Open beta ends; beta keys remain valid; 2,400+ teams participated
+  - date: '2025-09-22'
+    title: Rate Limit Overhaul — fixed request caps replaced by adaptive throttling
+  - date: '2025-07-14'
+    title: Open beta launch
+  - date: '2025-04-07'
+    title: Closed alpha begins
+observations:
+  - >-
+    Not one entry in the whole log is marked breaking. Every model and routing
+    change is absorbed server-side because callers never name a model, which is the
+    structural consequence of the routing product.
+  - >-
+    The page header reads "Updated June 2026" while the newest entry is dated
+    2026-08-29 — the banner is stale relative to its own content.

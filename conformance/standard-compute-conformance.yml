@@ -1,0 +1,112 @@
+generated: '2026-09-02'
+method: derived
+source: openapi/standard-compute-openapi.json
+also:
+  - https://standardcompute.com/getting-started
+  - https://standardcompute.com/security
+  - probed: GET https://api.stdcmpt.com/v1/models (2026-09-02)
+standards:
+  - id: openapi
+    name: OpenAPI Specification
+    conforms: true
+    version: 3.1.0
+    evidence: >-
+      https://api.stdcmpt.com/openapi.json returns a parsing OpenAPI 3.1.0 document
+      with nine operations (HTTP 200, application/json, probed 2026-09-02). Saved
+      verbatim to openapi/standard-compute-openapi.json.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme in the spec, no OAuth documentation, and
+      /.well-known/oauth-authorization-server 404s on both hosts. Authentication is
+      a single Bearer API key.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on both hosts.
+  - id: rfc9457
+    name: Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      Errors use the OpenAI envelope {"error":{"message","type"}} with content-type
+      application/json, observed live on a 401. No application/problem+json.
+  - id: rfc9116
+    name: security.txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns 404 on both hosts, although a responsible
+      disclosure policy IS published at https://standardcompute.com/security.
+  - id: rfc8594
+    name: Sunset header
+    conforms: false
+    evidence: No Sunset or Deprecation header is documented or observed.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency key documented; see conventions/standard-compute-conventions.yml.
+  - id: pagination
+    conforms: false
+    not_applicable: true
+    evidence: No collection endpoint paginates; GET /v1/models returns the full pool unpaged.
+  - id: json-api
+    conforms: false
+    evidence: Media type is application/json, not application/vnd.api+json.
+  - id: sse
+    name: Server-Sent Events streaming
+    conforms: true
+    evidence: >-
+      Inherited from the OpenAI and Anthropic wire formats the gateway implements;
+      documented by the setup guides for streaming agents. NOT described in the
+      published OpenAPI, whose response schemas are empty.
+    confidence: medium
+domain_standards:
+  - id: openai-chat-completions
+    name: OpenAI Chat Completions / Models API (de-facto LLM inference interface)
+    conforms: true
+    market: LLM inference and AI gateways
+    evidence: >-
+      Declared by the CONTRACT, not by a marketing page: the published OpenAPI
+      defines POST /v1/chat/completions (operationId
+      chat_completions_v1_chat_completions_post), POST /v1/completions, POST
+      /v1/responses and GET /v1/models at the OpenAI path shapes, and the live
+      GET /v1/models response is the OpenAI list envelope
+      {"object":"list","data":[{"id","object","created","owned_by",...}]}.
+    signature:
+      spec_location: openapi/standard-compute-openapi.json#/paths/~1v1~1chat~1completions
+      probe: GET https://api.stdcmpt.com/v1/models -> 200, OpenAI list envelope
+    buyer_impact: >-
+      This is the whole product thesis and it is the reason the integration cost is
+      a one-line base-URL change. Any tool already speaking the OpenAI wire format
+      integrates with no bespoke connector; the provider ships no SDK precisely
+      because the standard's SDKs already work.
+  - id: anthropic-messages
+    name: Anthropic Messages API (second de-facto interface for coding agents)
+    conforms: true
+    market: LLM inference for agentic coding tools
+    evidence: >-
+      POST /v1/messages (operationId anthropic_messages_v1_messages_post) and POST
+      /v1/messages/count_tokens (anthropic_count_tokens_v1_messages_count_tokens_post)
+      are declared in the published OpenAPI. GET /v1/models carries an
+      anthropic_family_tier field per model (opus / sonnet / fable), confirming the
+      Anthropic family model is a first-class concept in the routing layer and not
+      just a compatibility shim.
+    signature:
+      spec_location: openapi/standard-compute-openapi.json#/paths/~1v1~1messages
+      probe: GET https://api.stdcmpt.com/v1/models -> anthropic_family_tier present on every entry
+    buyer_impact: >-
+      Supporting BOTH wire formats behind one key is uncommon; it is what lets Claude
+      Code run against this gateway with only ANTHROPIC_BASE_URL changed.
+    note: >-
+      The Anthropic path deliberately takes a base URL WITHOUT the /v1 suffix
+      because the client appends /v1/messages itself.
+compliance_certifications:
+  published: false
+  claims: []
+  note: >-
+    Recorded as an honest absence, and the provider is unusually explicit about it.
+    The security page states that certifications vary by upstream provider — "not
+    every provider in our pool holds the same third-party certifications (e.g. SOC
+    2)" — and directs buyers with compliance requirements to the upstream provider's
+    own terms rather than relying on Standard Compute's summary. No SOC 2, ISO 27001,
+    PCI, HIPAA or FedRAMP claim is made for Standard Compute itself, and no trust
+    center exists. NO Compliance or TrustCenter pointer is wired.
+  source: https://standardcompute.com/security
+regulatory_regime: none mapped (independent LLM inference vendor; no sector regime applies)
