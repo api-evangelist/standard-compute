@@ -69,6 +69,8 @@ apis:
       - type: Overlay
         url: overlays/standard-compute-openapi-overlay.yaml
 common:
+  - type: Website
+    url: https://www.standardcompute.com/
   - type: Documentation
     url: https://standardcompute.com/getting-started
   - type: GettingStarted
