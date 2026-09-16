@@ -15,6 +15,17 @@ created: '2026-09-02'
 modified: '2026-09-02'
 specificationVersion: '0.21'
 tags:
+  - LLM API
+  - Flat Rate
+  - Subscription
+  - AI Agents
+  - Inference
+  - Model Routing
+  - AI Gateway
+  - Developer Tools
+  - Coding Agents
+  - OpenAI-Compatible
+tags_raw:
   - llm api
   - flat-rate
   - subscription
@@ -26,48 +37,214 @@ tags:
   - coding agents
   - openai-compatible
 apis:
-  - name: Standard Compute Inference API
-    description: >-
-      OpenAI-compatible (and Anthropic Messages-compatible) LLM inference endpoint.
-      Set base URL to https://api.stdcmpt.com/v1, use a Bearer API key, and set
-      model to 'standardcompute'. Supports POST /v1/chat/completions,
-      POST /v1/completions, POST /v1/responses, the Anthropic Messages-compatible
-      POST /v1/messages and /v1/messages/count_tokens, plus an unauthenticated
-      GET /v1/models.
-    humanURL: https://standardcompute.com/getting-started
-    baseURL: https://api.stdcmpt.com/v1
-    tags:
-      - llm api
-      - flat-rate
-      - subscription
-      - ai agents
-      - inference
-      - model routing
-      - ai gateway
-      - developer tools
-      - coding agents
-      - openai-compatible
-    properties:
-      - type: OpenAPI
-        url: openapi/standard-compute-openapi.json
-      - type: Documentation
-        url: https://standardcompute.com/getting-started
-      - type: GettingStarted
-        url: https://standardcompute.com/getting-started
-      - type: LLMsTxt
-        url: https://standardcompute.com/llms.txt
-      - type: Authentication
-        url: authentication/standard-compute-authentication.yml
-      - type: ErrorCatalog
-        url: errors/standard-compute-problem-types.yml
-      - type: RateLimits
-        url: rate-limits/standard-compute-rate-limits.yml
-      - type: Conventions
-        url: conventions/standard-compute-conventions.yml
-      - type: DataModel
-        url: data-model/standard-compute-data-model.yml
-      - type: Overlay
-        url: overlays/standard-compute-openapi-overlay.yaml
+- aid: standard-compute:standard-compute-chat-api
+  name: Standard Compute Chat API
+  description: The Chat API from Standard Compute — 1 operation(s) for chat.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-chat-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-completions-api
+  name: Standard Compute Completions API
+  description: The Completions API from Standard Compute — 1 operation(s) for completions.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-completions-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-healthz-api
+  name: Standard Compute Healthz API
+  description: The Healthz API from Standard Compute — 1 operation(s) for healthz.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Healthz
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-healthz-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-install-ps1-api
+  name: Standard Compute Install.ps1 API
+  description: The Install.ps1 API from Standard Compute — 1 operation(s) for install.ps1.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Install.ps1
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-install-ps1-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-install-sh-api
+  name: Standard Compute Install.sh API
+  description: The Install.sh API from Standard Compute — 1 operation(s) for install.sh.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Install.sh
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-install-sh-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-messages-api
+  name: Standard Compute Messages API
+  description: The Messages API from Standard Compute — 2 operation(s) for messages.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-messages-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-models-api
+  name: Standard Compute Models API
+  description: The Models API from Standard Compute — 1 operation(s) for models.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Models
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-models-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-responses-api
+  name: Standard Compute Responses API
+  description: The Responses API from Standard Compute — 1 operation(s) for responses.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-responses-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
 common:
   - type: Website
     url: https://www.standardcompute.com/
