@@ -173,6 +173,8 @@ apis:
   humanURL: https://standardcompute.com/getting-started
   baseURL: https://api.stdcmpt.com/v1
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
