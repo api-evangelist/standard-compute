@@ -1,0 +1,34 @@
+# Front Door AI Index — standard-compute — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: standard-compute
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.standardcompute.com
+  final_host: standardcompute.com
+  ownership: own
+  owner: standard-compute
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 37
+  host_score: 37
+  density: 22.52
+  words: 1643
+  tiers:
+    agentic: 3
+    core: 10
+    model: 24
+  ambiguous: 28
+  top_terms:
+    agent: 15
+    OpenAI: 14
+    smart: 8
+    AI: 6
+    Claude: 5
+    intelligence: 5
+    LLMs: 4
+    GPT: 3
+    prompts: 3
+    Gemini: 2

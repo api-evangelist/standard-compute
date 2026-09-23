@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Chat API
+  version: 0.1.0
+tags:
+- name: Chat
+paths:
+  /v1/chat/completions:
+    post:
+      summary: Chat Completions
+      operationId: chat_completions_v1_chat_completions_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Chat

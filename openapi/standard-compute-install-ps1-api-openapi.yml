@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Install.ps1 API
+  version: 0.1.0
+tags:
+- name: Install.ps1
+paths:
+  /install.ps1:
+    get:
+      summary: Install Ps1
+      operationId: install_ps1_install_ps1_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Install.ps1

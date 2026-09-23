@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast Responses API
+  version: 0.1.0
+tags:
+- name: Responses
+paths:
+  /v1/responses:
+    post:
+      summary: Responses
+      description: OpenAI-compatible Responses API proxy.
+      operationId: responses_v1_responses_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Responses

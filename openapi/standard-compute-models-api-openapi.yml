@@ -1,0 +1,22 @@
+openapi: 3.2.0
+info:
+  title: Fast Models API
+  version: 0.1.0
+tags:
+- name: Models
+paths:
+  /v1/models:
+    get:
+      summary: List Models
+      operationId: list_models_v1_models_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response List Models V1 Models Get
+      tags:
+      - Models

@@ -1,0 +1,31 @@
+openapi: 3.2.0
+info:
+  title: Fast Messages API
+  version: 0.1.0
+tags:
+- name: Messages
+paths:
+  /v1/messages:
+    post:
+      summary: Anthropic Messages
+      operationId: anthropic_messages_v1_messages_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Messages
+  /v1/messages/count_tokens:
+    post:
+      summary: Anthropic Count Tokens
+      operationId: anthropic_count_tokens_v1_messages_count_tokens_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Messages

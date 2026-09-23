@@ -1,0 +1,51 @@
+{
+  "provider": "standard-compute",
+  "sources": [
+    "_original/standard-compute-openapi.json"
+  ],
+  "outputs": [
+    "standard-compute-chat-api-openapi.yml",
+    "standard-compute-completions-api-openapi.yml",
+    "standard-compute-healthz-api-openapi.yml",
+    "standard-compute-install-ps1-api-openapi.yml",
+    "standard-compute-install-sh-api-openapi.yml",
+    "standard-compute-messages-api-openapi.yml",
+    "standard-compute-models-api-openapi.yml",
+    "standard-compute-responses-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "standard-compute-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "standard-compute-openapi.json: tagged paths GET /healthz -> Healthz",
+    "standard-compute-openapi.json: tagged paths GET /install.sh -> Install.sh",
+    "standard-compute-openapi.json: tagged paths GET /install.ps1 -> Install.ps1",
+    "standard-compute-openapi.json: tagged paths GET /v1/models -> Models",
+    "standard-compute-openapi.json: tagged paths POST /v1/chat/completions -> Chat",
+    "standard-compute-openapi.json: tagged paths POST /v1/messages -> Messages",
+    "standard-compute-openapi.json: tagged paths POST /v1/messages/count_tokens -> Messages",
+    "standard-compute-openapi.json: tagged paths POST /v1/completions -> Completions",
+    "standard-compute-openapi.json: tagged paths POST /v1/responses -> Responses",
+    "standard-compute-openapi.json: declared missing tag: Chat",
+    "standard-compute-openapi.json: declared missing tag: Completions",
+    "standard-compute-openapi.json: declared missing tag: Healthz",
+    "standard-compute-openapi.json: declared missing tag: Install.ps1",
+    "standard-compute-openapi.json: declared missing tag: Install.sh",
+    "standard-compute-openapi.json: declared missing tag: Messages",
+    "standard-compute-openapi.json: declared missing tag: Models",
+    "standard-compute-openapi.json: declared missing tag: Responses",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "standard-compute-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-healthz-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-install-ps1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-install-sh-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-responses-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

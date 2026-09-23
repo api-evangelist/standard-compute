@@ -1,0 +1,22 @@
+openapi: 3.2.0
+info:
+  title: Fast Healthz API
+  version: 0.1.0
+tags:
+- name: Healthz
+paths:
+  /healthz:
+    get:
+      summary: Healthz
+      operationId: healthz_healthz_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Healthz Healthz Get
+      tags:
+      - Healthz

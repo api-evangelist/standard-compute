@@ -1,0 +1,20 @@
+openapi: 3.2.0
+info:
+  title: Fast Completions API
+  version: 0.1.0
+tags:
+- name: Completions
+paths:
+  /v1/completions:
+    post:
+      summary: Completions
+      description: Legacy /v1/completions proxy — translates to chat/completions internally.
+      operationId: completions_v1_completions_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Completions

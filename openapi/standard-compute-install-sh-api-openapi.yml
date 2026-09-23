@@ -1,0 +1,19 @@
+openapi: 3.2.0
+info:
+  title: Fast Install.sh API
+  version: 0.1.0
+tags:
+- name: Install.sh
+paths:
+  /install.sh:
+    get:
+      summary: Install Sh
+      operationId: install_sh_install_sh_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Install.sh
