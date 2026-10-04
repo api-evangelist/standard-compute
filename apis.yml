@@ -37,32 +37,6 @@ tags_raw:
   - coding agents
   - openai-compatible
 apis:
-- aid: standard-compute:standard-compute-chat-api
-  name: Standard Compute Chat API
-  description: The Chat API from Standard Compute — 1 operation(s) for chat.
-  humanURL: https://standardcompute.com/getting-started
-  baseURL: https://api.stdcmpt.com/v1
-  tags:
-  - Chat
-  properties:
-  - type: OpenAPI
-    url: openapi/standard-compute-chat-api-openapi.yml
-  - type: Documentation
-    url: https://standardcompute.com/getting-started
-  - type: GettingStarted
-    url: https://standardcompute.com/getting-started
-  - type: LLMsTxt
-    url: https://standardcompute.com/llms.txt
-  - type: Authentication
-    url: authentication/standard-compute-authentication.yml
-  - type: ErrorCatalog
-    url: errors/standard-compute-problem-types.yml
-  - type: RateLimits
-    url: rate-limits/standard-compute-rate-limits.yml
-  - type: Conventions
-    url: conventions/standard-compute-conventions.yml
-  - type: DataModel
-    url: data-model/standard-compute-data-model.yml
 - aid: standard-compute:standard-compute-completions-api
   name: Standard Compute Completions API
   description: The Completions API from Standard Compute — 1 operation(s) for completions.
@@ -231,6 +205,32 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/standard-compute-responses-api-openapi.yml
+  - type: Documentation
+    url: https://standardcompute.com/getting-started
+  - type: GettingStarted
+    url: https://standardcompute.com/getting-started
+  - type: LLMsTxt
+    url: https://standardcompute.com/llms.txt
+  - type: Authentication
+    url: authentication/standard-compute-authentication.yml
+  - type: ErrorCatalog
+    url: errors/standard-compute-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/standard-compute-rate-limits.yml
+  - type: Conventions
+    url: conventions/standard-compute-conventions.yml
+  - type: DataModel
+    url: data-model/standard-compute-data-model.yml
+- aid: standard-compute:standard-compute-chat-completions-api
+  name: Standard Compute Chat Completions API
+  description: The Chat Completions API from Standard Compute — 1 operation(s) for chat completions.
+  humanURL: https://standardcompute.com/getting-started
+  baseURL: https://api.stdcmpt.com/v1
+  tags:
+  - Chat Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/standard-compute-chat-completions-api-openapi.yml
   - type: Documentation
     url: https://standardcompute.com/getting-started
   - type: GettingStarted

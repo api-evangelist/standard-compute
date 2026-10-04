@@ -3,7 +3,7 @@ info:
   title: Fast Chat API
   version: 0.1.0
 tags:
-- name: Chat
+- name: Chat Completions
 paths:
   /v1/chat/completions:
     post:
@@ -16,4 +16,4 @@ paths:
             application/json:
               schema: {}
       tags:
-      - Chat
+      - Chat Completions
