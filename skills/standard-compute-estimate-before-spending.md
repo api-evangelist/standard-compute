@@ -9,8 +9,7 @@ operations:
 generated: '2026-09-02'
 method: generated
 source: >-
-  operationIds read from openapi/standard-compute-openapi.json; budget and pacing
-  semantics from https://standardcompute.com/fair-use and
+  operationIds read from openapi/standard-compute-openapi.json; budget semantics from https://standardcompute.com/fair-use and
   https://standardcompute.com/smart-pacing.
 ---
 

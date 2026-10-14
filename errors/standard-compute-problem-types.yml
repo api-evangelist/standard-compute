@@ -43,22 +43,23 @@ problem_types:
       designed ceiling, not a fault.
     remediation: >-
       Upgrade the plan (takes effect immediately) or wait for the billing period to
-      renew. Enabling optional smart pacing beforehand spreads the budget across the
-      month so the ceiling is not hit in a burst.
+      renew. On Economy and above, Pay as you go (dashboard) adds prepaid compute in
+      fixed steps. (Smart pacing, which spread the budget, was retired 2026-10-08.)
     retryable: false (until renewal or upgrade)
     evidence: >-
       https://standardcompute.com/llms-full.txt — "requests run normally until the
       budget is reached, then return HTTP 402 until the billing period renews"
   - status: 429
     type: null
-    title: Not used by this API
-    cause: null
-    remediation: null
+    title: Anti-abuse request-rate ceiling
+    cause: >-
+      A key bursts past the high anti-abuse request-rate ceiling that applies to every
+      key (threshold not published). There are no session windows or daily/weekly caps.
+    remediation: Honor the Retry-After header; standard OpenAI-compatible SDKs retry automatically.
+    retryable: true
     note: >-
-      Recorded as a deliberate ABSENCE. The provider states repeatedly that it does
-      not return per-minute 429s; under sustained load ahead of budget it paces
-      requests (adds latency) rather than rejecting them. Agents written against
-      OpenAI's 429 backoff path will simply never take that branch here.
+      Updated 2026-10-14. Requests are never slowed based on budget use; the earlier
+      "pacing instead of 429" behaviour was smart pacing, retired 2026-10-08.
     evidence: https://standardcompute.com/smart-pacing
 gaps:
   - >-

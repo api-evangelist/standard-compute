@@ -87,5 +87,6 @@ they take longer and still succeed.
 
 There is no budget or usage endpoint and no rate-limit response header. A running
 agent gets **no in-band warning** before a 402. If budget exhaustion would be
-disruptive, enable optional smart pacing in the dashboard first — it spreads the
-remaining budget across the month instead of letting a burst drain it.
+disruptive, watch the remaining budget in the dashboard, size the plan for the
+workload, or (Economy and above) turn on Pay as you go. Smart pacing, which used to
+spread the budget across the month, was retired on October 8, 2026.

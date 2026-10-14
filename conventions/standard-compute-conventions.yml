@@ -111,8 +111,11 @@ reversibility:
       budget consumption cannot be refunded, voided or reversed through the API.
       There is no cancel, no void and no per-request refund.
     mitigations_published:
-      - name: Optional smart pacing
-        effect: spreads the remaining budget across the month so a runaway agent cannot drain it in a burst
+      - name: Monthly compute budget stop
+        effect: >-
+          requests stop with HTTP 402 at the plan budget — nothing bills as overage. Smart
+          pacing (spreading the budget across the month) was retired 2026-10-08 and is
+          legacy on a small number of existing keys only.
         source: https://standardcompute.com/smart-pacing
       - name: 7-day fair refund
         effect: >-
