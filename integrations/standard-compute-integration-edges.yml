@@ -14,7 +14,7 @@ edges:
     value: OpenAI-compatible
     note: 'standard-compute declares OpenAI compatibility: ''description: OpenAI-compatible Responses API proxy.'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
 generated: '2026-10-13'
