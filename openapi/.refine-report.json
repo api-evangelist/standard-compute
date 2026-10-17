@@ -13,7 +13,9 @@
     "standard-compute-models-api-openapi.yml",
     "standard-compute-responses-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -36,10 +38,11 @@
     "standard-compute-openapi.json: declared missing tag: Messages",
     "standard-compute-openapi.json: declared missing tag: Models",
     "standard-compute-openapi.json: declared missing tag: Responses",
-    "apis.yml register: already-registered"
+    "superseded outputs removed: standard-compute-chat-completions-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 8 total)"
   ],
   "skipped": [
-    "standard-compute-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "standard-compute-chat-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "standard-compute-completions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "standard-compute-healthz-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "standard-compute-install-ps1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
